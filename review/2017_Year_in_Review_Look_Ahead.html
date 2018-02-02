@@ -114,6 +114,89 @@
 					</canvas>
 				</section>
 
+
+				<section>
+					<section>
+						<h1>Charts with Reveal.js</h1>
+						<p>
+							<small>Created by <a href="http://www.telematique.eu" >Asvin Goel</a></small>
+						</p>
+					</section>
+					<section>
+						<h3>Line chart from JSON string</h3>
+						<canvas class="stretch" data-chart="line">
+		<!--
+		{
+		 "data": {
+		  "labels": ["January"," February"," March"," April"," May"," June"," July"],
+		  "datasets":[
+		   {
+			"data":[65,59,80,81,56,55,40],
+			"label":"My first dataset","backgroundColor":"rgba(20,220,220,.8)"
+		   },
+		   {
+			"data":[28,48,40,19,86,27,90],
+			"label":"My second dataset","backgroundColor":"rgba(220,120,120,.8)"
+		   }
+		  ]
+		 }, 
+		 "options": { "responsive": "true" }
+		}
+		-->
+						</canvas>
+					</section>
+					<section>
+						<h3>Line chart with CSV data and JSON configuration</h3>
+						<canvas class="stretch" data-chart="line">
+		My first dataset,  65, 59, 80, 81, 56, 55, 40
+		<!-- This is a comment -->
+		My second dataset, 28, 48, 40, 19, 86, 27, 90
+		<!-- 
+		{ 
+		"data" : {
+			"labels" : ["Enero", "Febrero", "Marzo", "Avril", "Mayo", "Junio", "Julio"],
+			"datasets" : [{ "borderColor": "#0f0", "borderDash": ["5","10"] }, { "borderColor": "#0ff" } ]
+			}
+		}
+		-->
+						</canvas>
+					</section>
+					<section>
+						<h3>Bar chart with CSV data</h3>
+						<canvas class="stretch" data-chart="bar">
+		,January, February, March, April, May, June, July
+		My first dataset, 65, 59, 80, 81, 56, 55, 40
+		My second dataset, 28, 48, 40, 19, 86, 27, 90
+						</canvas>
+					</section>
+					<section>
+						<h3>Stacked bar chart from CSV file with JSON configuration</h3>
+						<canvas class="stretch" data-chart="bar" data-chart-src="chart/data.csv">
+		<!-- 
+		{
+		"data" : {
+		"datasets" : [{ "backgroundColor": "#0f0" }, { "backgroundColor": "#0ff" } ]
+		},
+		"options": { "responsive": true, "scales": { "xAxes": [{ "stacked": true }], "yAxes": [{ "stacked": true }] } }
+		}
+		-->
+						</canvas>
+					</section>
+					<section>
+						<h3>Pie chart</h3>
+						<canvas class="stretch" data-chart="pie">
+		,Black, Red, Green, Yellow
+		My first dataset, 40, 40, 20, 6
+		My second dataset, 45, 40, 25, 4
+						</canvas>
+					</section>
+					<section>
+						<h2>Credits</h2>
+						<p> 
+							The charts are generated using <a href="http://www.chartjs.org/">Chart.js 2.7</a>.
+						<p>
+					</section>
+
 			</div>
 
 		</div>
