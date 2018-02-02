@@ -41,6 +41,7 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section data-markdown>
+					
 					<textarea data-template>
 						# 2017: Year in Review & Look Ahead
 					</textarea>
@@ -146,6 +147,7 @@
 						</textarea>
 					</section>
 					<section data-markdown>
+						<small>
 							<textarea data-template>
 								|项目|原因|次数|影响范围|处理方式|
 								|-|-|-|-|-|
@@ -156,7 +158,44 @@
 								|CRM|网络故障|2|全局|切换IP|
 								|KM|并发过大时数据库连接池锁|1|全局|减小事务粒度，优化SQL，压测|
 							</textarea>
-						</section>
+						</small>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+
+						</textarea>
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							# 重点工作
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							* 搭建sonar通过与IDE的集成进行代码持续检测和质量管理
+							* 集成jacoco进行代码覆盖率检查
+							* 使用Rest Doc和集成测试自动生成对前端友好地API文档
+							* 编写troubleshoot脚本方便一键定位问题与快速恢复
+							* 使用kettle进行ETL的处理
+						</textarea>
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							# 展望
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							* 搭建完善的CI流程，将几个独立步骤串联起来
+							* 完善监控，troubleshoot
+						</textarea>
+					</section>
 				</section>
 
 			</div>
