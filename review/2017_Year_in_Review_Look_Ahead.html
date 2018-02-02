@@ -48,13 +48,13 @@
 						### Created by 张帆
 					</textarea>
 				</section>
-				<section data-transition="zoom">
+				<section>
 					<section data-markdown>
 							<textarea data-template>
 								# CRM
 							</textarea>
 					</section>
-					<section data-transition="convex">
+					<section>
 						<h3>KPI</h3>
 						<canvas class="stretch" data-chart="line">
 							<!--
@@ -77,36 +77,39 @@
 							-->
 						</canvas>
 					</section>
-					<section  data-transition="slide">
+					<section>
 						<h3>MARKETING</h3>
-						<canvas data-chart="line">
-							<!--
-							{
-								"data": {
-								"labels": ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
-								"datasets":[
-								{
-								"data":[1915,1812,2440,17319,18668,18984,13945,17895,21871,37028,134824,134841],
-								"label":"客户数","backgroundColor":"rgba(20,220,220,.8)"
-								}
-								]
-								}, 
-								"options": { "responsive": "true" }
-							}
-							-->
-						</canvas>
-					</section>
-					<section  data-transition="concave">
-						<h3>MARKETING</h3>
-						<canvas data-chart="pie">
-							,"Udesk", "盈家生活", "东方龙商务", "北京八斗互动", "浩然健康生物", "清远市享天生物", "阳光兔", "创数纪", "世纪文都", "长沙绿成", "长沙康能", "苏州青颖飞帆"
-							dataset, 41355, 319, 10102, 4767, 157501, 6339, 1912, 8479, 5404, 160758, 45848, 3180
-						</canvas>
+						<div class="sliderow">
+							<div class="leftcol" style="border:#333 solid 1px;height:370px">
+									<canvas data-chart="line">
+											<!--
+											{
+												"data": {
+												"labels": ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+												"datasets":[
+												{
+												"data":[1915,1812,2440,17319,18668,18984,13945,17895,21871,37028,134824,134841],
+												"label":"客户数","backgroundColor":"rgba(20,220,220,.8)"
+												}
+												]
+												}, 
+												"options": { "responsive": "true" }
+											}
+											-->
+										</canvas>
+							</div>
+							<div class="rightcol" style="border:#333 solid 1px;height:370px">
+									<canvas data-chart="pie">
+											,"Udesk", "盈家生活", "东方龙商务", "北京八斗互动", "浩然健康生物", "清远市享天生物", "阳光兔", "创数纪", "世纪文都", "长沙绿成", "长沙康能", "苏州青颖飞帆"
+											dataset, 41355, 319, 10102, 4767, 157501, 6339, 1912, 8479, 5404, 160758, 45848, 3180
+										</canvas>
+							</div>
+						</div>
 					</section>
 				</section>
 
 				<section>
-					<section data-markdown  data-transition="zoom">
+					<section data-markdown>
 						<textarea data-template>
 							# KM & ROBOT
 						</textarea>
@@ -203,12 +206,12 @@
 				</section>
 
 				<section>
-					<section data-markdown>
+					<section data-markdown data-background="#007777">
 						<textarea data-template>
 							# 事故与反思
 						</textarea>
 					</section>
-					<section data-markdown style="font-size:20px">
+					<section data-markdown style="font-size:20px" data-background="#007777">
 						<small>
 							<textarea data-template>
 								|项目|原因|次数|影响范围|处理方式|
@@ -222,7 +225,7 @@
 							</textarea>
 						</small>
 					</section>
-					<section data-markdown>
+					<section data-markdown data-background="#007777">
 						<textarea data-template>
 							* 问题从发生到被监测出来的时间
 								* 充分收集监控数据
@@ -262,6 +265,11 @@
 							* 完善监控，troubleshoot流程
 						</textarea>
 					</section>
+				</section>
+				<section data-markdown>
+						<textarea data-template>
+								# END
+							</textarea>
 				</section>
 
 			</div>
