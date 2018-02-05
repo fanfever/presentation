@@ -41,28 +41,19 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section data-markdown data-transition="zoom">
+					
 					<textarea data-template>
 						## 2017: Year in Review & Look Ahead
 					</textarea>
 				</section>
-
 				<section>
 					<section data-markdown>
-						<textarea data-template>
-							# KPI
-						</textarea>
-					</section>
-					<section data-markdown>
-						<textarea data-template>
-							# CRM
-						</textarea>
+							<textarea data-template>
+								# CRM
+							</textarea>
 					</section>
 					<section>
-						<h3>总览</h3>
-						<p><img src="http://7xjr9y.com1.z0.glb.clouddn.com/crm_overview.png" alt=""></p>
-					</section>
-					<section>
-						<h3>功能与BUG统计</h3>
+						<h3>KPI</h3>
 						<canvas class="stretch" data-chart="line">
 							<!--
 							{
@@ -82,89 +73,15 @@
 								"options": { "responsive": "true" }
 							}
 							-->
+							<li>后端3人->1人，前端3人->1人</li>
+							<li>总代码行数：66,165</li>
+							<li>代码重复率：8.9%</li>
+							<li>技术债务：85天</li>
 						</canvas>
-						<li>后端3人->1人，前端3人->1人</li>
-						<li>前端人员更换较频繁</li>
-						<li>后端后期没有A/B角色，导致一些BUG及优化处理的不够及时</li>
-					</section>
-					<section data-markdown>
-						<textarea data-template>
-							# KM
-						</textarea>
+						
 					</section>
 					<section>
-						<h3>总览</h3>
-						<p><img src="http://7xjr9y.com1.z0.glb.clouddn.com/km_overview.png" alt=""></p>
-					</section>
-					<section>
-						<h3>功能与BUG统计</h3>
-						<canvas class="stretch" data-chart="line">
-							<!--
-							{
-								"data": {
-								"labels": ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
-								"datasets":[
-								{
-								"data":[3,9,2,10,4,14,8,22,6,31,23,41],
-								"label":"feature","backgroundColor":"rgba(20,220,220,.8)"
-								},
-								{
-								"data":[0,2,0,4,27,0,8,32,43,83,38,94],
-								"label":"bug","backgroundColor":"rgba(220,120,120,.8)"
-								}
-								]
-								}, 
-								"options": { "responsive": "true" }
-							}
-							-->
-						</canvas>
-						<li>后端1.5人，前端1人</li>
-						<li>后端人员经验不足，导致走了很多弯路</li>
-						<li>由于需要跨引擎层与展示层，联调较耗费时间</li>
-					</section>
-					<section data-markdown>
-						<textarea data-template>
-							# ServiceGo
-						</textarea>
-					</section>
-					<section>
-						<h3>总览</h3>
-						<p><img src="http://7xjr9y.com1.z0.glb.clouddn.com/case_overview.png" alt=""></p>
-					</section>
-					<section>
-						<h3>功能与BUG统计</h3>
-						<canvas class="stretch" data-chart="line">
-							<!--
-							{
-								"data": {
-								"labels": ["四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
-								"datasets":[
-								{
-								"data":[8,2,34,32,51,56,34,66,59],
-								"label":"feature","backgroundColor":"rgba(20,220,220,.8)"
-								},
-								{
-								"data":[0,59,62,196,144,139,72,131,113],
-								"label":"bug","backgroundColor":"rgba(220,120,120,.8)"
-								}
-								]
-								}, 
-								"options": { "responsive": "true" }
-							}
-							-->
-						</canvas>
-						<li>后端人数4人，前端人数4人</li>
-					</section>
-				</section>
-
-				<section>
-					<section data-markdown>
-						<textarea data-template>
-							# MARKETING
-						</textarea>
-					</section>
-					<section>
-						<h3>CRM</h3>
+						<h3>MARKETING</h3>
 						<canvas data-chart="line">
 							<!--
 							{
@@ -189,8 +106,42 @@
 								dataset, 41355, 319, 10102, 4767, 157501, 6339, 1912, 8479, 5404, 160758, 45848, 3180
 						</canvas>
 					</section>
+				</section>
+
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							# KM & ROBOT
+						</textarea>
+					</section>
 					<section>
-						<h3>KM</h3>
+						<h3>KPI</h3>
+						<canvas class="stretch" data-chart="line">
+							<!--
+							{
+								"data": {
+								"labels": ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+								"datasets":[
+								{
+								"data":[3,9,2,10,4,14,8,22,6,31,23,41],
+								"label":"feature","backgroundColor":"rgba(20,220,220,.8)"
+								},
+								{
+								"data":[0,2,0,4,27,0,8,32,43,83,38,94],
+								"label":"bug","backgroundColor":"rgba(220,120,120,.8)"
+								}
+								]
+								}, 
+								"options": { "responsive": "true" }
+							}
+							-->
+						</canvas>
+						<li>总代码行数：33,570</li>
+						<li>代码重复率：4.7%</li>
+						<li>技术债务：18天</li>
+					</section>
+					<section>
+						<h3>MARKETING</h3>
 						<canvas data-chart="line">
 							<!--
 							{
@@ -225,6 +176,41 @@
 					</section>
 				</section>
 
+
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							# ServiceGo
+						</textarea>
+					</section>
+					<section>
+						<h3>KPI</h3>
+						<canvas class="stretch" data-chart="line">
+							<!--
+							{
+								"data": {
+								"labels": ["四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+								"datasets":[
+								{
+								"data":[8,2,34,32,51,56,34,66,59],
+								"label":"feature","backgroundColor":"rgba(20,220,220,.8)"
+								},
+								{
+								"data":[0,59,62,196,144,139,72,131,113],
+								"label":"bug","backgroundColor":"rgba(220,120,120,.8)"
+								}
+								]
+								}, 
+								"options": { "responsive": "true" }
+							}
+							-->
+						</canvas>
+						<li>总代码行数：33,570</li>
+						<li>代码重复率：4.7%</li>
+						<li>技术债务：18天</li>
+					</section>
+				</section>
+
 				<section>
 					<section data-markdown data-background="#007777">
 						<textarea data-template>
@@ -245,7 +231,7 @@
 							</textarea>
 						</small>
 					</section>
-					<section data-markdown style="font-size:20px" data-background="#007777">
+					<section data-markdown data-background="#007777">
 						<textarea data-template>
 							## 响应时间
 
@@ -273,8 +259,7 @@
 					</section>
 					<section data-markdown data-background="#CD6839">
 						<textarea data-template>
-							* 抽象公共库，使得各项目之间可以复用
-							* 搭建[sonar](http://jenkins.flyudesk.com/sonar/projects?sort=-analysis_date)通过与IDE的集成进行代码持续检测和质量管理
+							* 搭建sonar通过与IDE的集成进行代码持续检测和质量管理
 							* 集成jacoco进行代码覆盖率检查
 							* 使用Rest Doc和集成测试自动生成对前端友好地API文档
 							* 编写troubleshoot脚本方便一键定位问题与快速恢复
@@ -291,14 +276,11 @@
 					</section>
 					<section data-markdown data-background="#CD9B1D">
 						<textarea data-template>
-							* 搭建完善的CI流程，将几个独立步骤串联起来，以便更好的管控整体代码质量
-							* 完善监控，troubleshoot流程，快速定位，先于用户发现问题
-							* CRM为电销功能做好技术支撑
-							* ROBOT以业务层做引导，做好多伦会话等上下文支持
+							* 搭建完善的CI流程，将几个独立步骤串联起来
+							* 完善监控，troubleshoot流程
 						</textarea>
 					</section>
 				</section>
-
 				<section data-markdown>
 						<textarea data-template>
 								# END
