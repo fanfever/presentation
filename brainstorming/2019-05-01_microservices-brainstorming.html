@@ -50,16 +50,15 @@
     </section>
 
     <section class="slide">
-        <h1 class="shout">目的</h1>
+        <h2 class="shout">目的</h2>
     </section>
 
     <section class="slide">
-        <h2>系统架构遵循的三个标准</h2>
-        <h2>最常见的业务驱动力</h2>
+        <h2>系统架构遵循的标准&业务驱动力</h2>
         <ol>
-            <li class="next">提高敏捷性：及时响应业务需求，促进企业发展</li>
-            <li class="next">提升用户体验：提升客户体验，减少客户流失</li>
-            <li class="next">降低成本：降低增加产品，客户或业务方案的成本</li>
+            <li>提高敏捷性：<p class="next">及时响应业务需求，促进企业发展</p></li>
+            <li>提升用户体验：<p class="next"></p>提升客户体验，减少客户流失</p></li>
+            <li>降低成本：<p class="next"></p>降低增加产品，客户或业务方案的成本</p></li>
         </ol>
     </section>
 
@@ -82,7 +81,7 @@
     <section class="slide">
         <h2>Monolithic</h2>
         <figure>
-            <img src="2019-05-01_mb_pictures/monolithic.png" alt="Hands on the orange typewriter in a park">
+            <img href="2019-05-01_mb_pictures/monolithic.svg" alt="Hands on the orange typewriter in a park">
             <figcaption class="copyright right white">
                 <a href="fanfever.github.io/">© fanfever</a>
             </figcaption>
@@ -92,29 +91,33 @@
     <section class="slide">
         <h2>Monolithic</h2>
         <div class="columns two">
-            <p><li>优势</li>
-                <ul>
-                    <li>开发简单，集中式管理</li>
-                    <li>基本不会重复开发</li>
-                    <li>功能都在本地，没有分布式的管理和调用消耗</li>
-                </ul></p>
-            <p><li>劣势</li>
-                <ul>
-                    <li>效率低：开发都在同一个项目改代码，相互等待，冲突不断</li>
-                    <li>维护难：代码功功能耦合在一起，新人不知道何从下手</li>
-                    <li>不灵活：构建时间长，任何小修改都要重构整个项目，耗时</li>
-                    <li>稳定性差：一个微小的问题，都可能导致整个应用挂掉</li>
-                    <li>扩展性不够：无法满足高并发下的业务需求</li>
-                </ul></p>
+            <p><li>优势
+                    <ul>
+                        <li>开发简单，集中式管理</li>
+                        <li>基本不会重复开发</li>
+                        <li>功能都在本地，没有分布式的管理和调用消耗</li>
+                    </ul>
+                </li>
+            </p>
+            <p><li>劣势
+                    <ul>
+                        <li>效率低：开发都在同一个项目改代码，相互等待，冲突不断</li>
+                        <li>维护难：代码功功能耦合在一起，新人不知道何从下手</li>
+                        <li>不灵活：构建时间长，任何小修改都要重构整个项目，耗时</li>
+                        <li>稳定性差：一个微小的问题，都可能导致整个应用挂掉</li>
+                        <li>扩展性不够：无法满足高并发下的业务需求</li>
+                    </ul>
+                </li>
+            </p>
         </div>
     </section>
 
     <section class="slide">
-        <h1 class="shout">Microservices</h1>
+        <h2 class="shout">Microservices</h2>
     </section>
 
     <section class="slide">
-        <h2>Serious citations</h2>
+        <h2>什么是微服务</h2>
         <figure>
             <blockquote>
                 <p>简而言之，微服务架构风格是一种将单个应用程序开发为一套小型服务的方法，每个小型服务都在自己的流程中运行，并与轻量级机制（通常是HTTP资源API）进行通信。这些服务围绕业务功能构建， 可通过全自动部署机制独立部署。有一个集中管理的最低限度的这些服务，可以用不同的编程语言和使用不同的数据存储技术。</p>
