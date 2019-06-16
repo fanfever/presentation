@@ -9,233 +9,458 @@
         .shower {
             --slide-ratio: calc(16 / 9);
         }
+
+        .small {
+            font-size: 60%
+        }
+
+        #cover h2 {
+            margin: 30px 0 0;
+            color: white;
+            text-align: center;
+            font-size: 70px;
+        }
+
+        #cover p {
+            margin: 10px 0 0;
+            text-align: center;
+            color: white;
+            font-style: italic;
+            font-size: 20px;
+        }
+
+        #cover p a {
+            color: white;
+        }
     </style>
 </head>
 <body class="shower list">
 
-    <header class="caption">
-        <h1>Microservices Brainstorming</h1>
-        <p>fanfever, Udesk Inc.</p>
-    </header>
+<header class="caption">
+    <h1>Microservices Brainstorming</h1>
+    <p>fanfever, Udesk Inc.</p>
+</header>
 
-    <section class="slide" id="cover">
-        <h2>Microservices Brainstorming</h2>
-        <p>Brought to you by <a href="fanfever.github.io/">fanfever</a></p>
-        <figure>
-            <img class="cover" src="2019-05-01_mb_pictures/cover.jpg" alt="Hands on the orange typewriter in a park">
-            <figcaption class="copyright right white">
-                <a href="fanfever.github.io/">© fanfever</a>
-            </figcaption>
-        </figure>
-        <style>
-            #cover h2 {
-                margin: 30px 0 0;
-                color: white;
-                text-align: center;
-                font-size: 70px;
-            }
+<section class="slide" id="cover">
+    <h2>Microservices Brainstorming</h2>
+    <p>Brought to you by <a href="fanfever.github.io/">fanfever</a></p>
+    <figure>
+        <img class="cover" src="2019-05-01_mb_pictures/cover.jpg" alt="Hands on the orange typewriter in a park">
+        <figcaption class="copyright right white">
+            <a href="fanfever.github.io/">© fanfever</a>
+        </figcaption>
+    </figure>
+</section>
 
-            #cover p {
-                margin: 10px 0 0;
-                text-align: center;
-                color: white;
-                font-style: italic;
-                font-size: 20px;
-            }
+<section class="slide">
+    <h2 class="shout">目的</h2>
+</section>
 
-            #cover p a {
-                color: white;
-            }
-        </style>
-    </section>
+<section class="slide">
+    <h2>系统架构遵循的标准&业务驱动力</h2>
+    <ol>
+        <li>提高敏捷性：及时响应业务需求，促进企业发展</li>
+        <li>提升客户体验：提升客户体验，减少客户流失</li>
+        <li>降低成本：降低增加产品，客户或业务方案的成本</li>
+    </ol>
+</section>
 
-    <section class="slide">
-        <h2 class="shout">目的</h2>
-    </section>
+<section class="slide">
+    <h2>拥抱变化</h2>
+    <ul>
+        <li>软件开发流程和实践
+            <ul>
+                <li class="next">敏捷开发（XP, Scrum, 精益，看板）</li>
+            </ul>
+        </li>
+        <li>软件技术和架构
+            <ul>
+                <li class="next">SOA，Frontend–Backend，SPA, Docker</li>
+            </ul>
+        </li>
+    </ul>
+</section>
 
-    <section class="slide">
-        <h2>系统架构遵循的标准&业务驱动力</h2>
-        <ol>
-            <li>提高敏捷性：及时响应业务需求，促进企业发展</li>
-            <li>提升客户体验：提升客户体验，减少客户流失</li>
-            <li>降低成本：降低增加产品，客户或业务方案的成本</li>
-        </ol>
-    </section>
+<section class="slide">
+    <div style="width: 100%;height: 400px;overflow-y: auto;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="439" height="1798" style="margin: 0 auto;display: block;">
+            <image href="2019-05-01_mb_pictures/timeline.svg"></image>
+        </svg>
+    </div>
+</section>
 
-    <section class="slide">
-        <h2>拥抱变化</h2>
-        <ul>
-            <li>软件开发流程和实践
-                <ul>
-                    <li class="next">敏捷开发（XP, Scrum, 精益，看板）</li>
-                </ul>
-            </li>
-            <li>软件技术和架构
-                <ul>
-                    <li class="next">SOA，Frontend–Backend，SPA, Docker</li>
-                </ul>
-            </li>
-        </ul>
-    </section>
+<section class="slide">
+    <h2>Monolithic</h2>
+    <figure>
+        <image href="2019-05-01_mb_pictures/monolithic.svg" alt="Hands on the orange typewriter in a park"/>
+        <figcaption class="copyright right white">
+            <a href="fanfever.github.io/">© fanfever</a>
+        </figcaption>
+    </figure>
+</section>
 
-    <section class="slide">
-        <h2>Monolithic</h2>
-        <figure>
-            <image href="2019-05-01_mb_pictures/monolithic.svg" alt="Hands on the orange typewriter in a park" />
-            <figcaption class="copyright right white">
-                <a href="fanfever.github.io/">© fanfever</a>
-            </figcaption>
-        </figure>
-    </section>
+<section class="slide">
+    <h2>优劣</h2>
+    <div class="small">
+        <li>优势
+            <ul>
+                <li>开发简单，集中式管理</li>
+                <li>基本不会重复开发</li>
+                <li>功能都在本地，没有分布式的管理和调用消耗</li>
+            </ul>
+        </li>
+        <li>劣势
+            <ul>
+                <li>效率低：开发都在同一个项目改代码，相互等待，冲突不断</li>
+                <li>维护难：代码功功能耦合在一起，新人不知道何从下手</li>
+                <li>不灵活：构建时间长，任何小修改都要重构整个项目，耗时</li>
+                <li>稳定性差：一个微小的问题，都可能导致整个应用挂掉</li>
+                <li>扩展性不够：无法满足高并发下的业务需求</li>
+            </ul>
+        </li>
+    </div>
+</section>
 
-    <section class="slide">
-        <h2>优劣</h2>
-            <div style="font-size:30%"><li>优势
-                    <ul>
-                        <li>开发简单，集中式管理</li>
-                        <li>基本不会重复开发</li>
-                        <li>功能都在本地，没有分布式的管理和调用消耗</li>
-                    </ul>
-                </li>
-            <li>劣势
-                    <ul>
-                        <li>效率低：开发都在同一个项目改代码，相互等待，冲突不断</li>
-                        <li>维护难：代码功功能耦合在一起，新人不知道何从下手</li>
-                        <li>不灵活：构建时间长，任何小修改都要重构整个项目，耗时</li>
-                        <li>稳定性差：一个微小的问题，都可能导致整个应用挂掉</li>
-                        <li>扩展性不够：无法满足高并发下的业务需求</li>
-                    </ul>
-                </li>
-            </div>
-    </section>
+<section class="slide">
+    <h2>SOA</h2>
+    <figure>
+        <image href="2019-05-01_mb_pictures/monolithic.svg" alt="Hands on the orange typewriter in a park"/>
+        <figcaption class="copyright right white">
+            <a href="fanfever.github.io/">© fanfever</a>
+        </figcaption>
+    </figure>
+</section>
 
-    <section class="slide">
-        <h2>SOA</h2>
-        <figure>
-            <image href="2019-05-01_mb_pictures/monolithic.svg" alt="Hands on the orange typewriter in a park" />
-            <figcaption class="copyright right white">
-                <a href="fanfever.github.io/">© fanfever</a>
-            </figcaption>
-        </figure>
-    </section>
-
-    <section class="slide">
-        <h2>ESB</h2>
+<section class="slide">
+    <h2>ESB</h2>
+    <div>
         <ul>
             <li>服务的虚拟化,支持虚拟化通讯参与方之间的服务交互并对其进行管理</li>
             <li>服务的转化,包装以及桥接</li>
             <li>消息的传递,过滤以及路由</li>
             <li>服务编制</li>
         </ul>
-    </section>
+    </div>
+</section>
 
-    <section class="slide">
-        <h2 class="shout">Microservices</h2>
-    </section>
+<section class="slide">
+    <h2 class="shout">Microservices</h2>
+</section>
 
-    <section class="slide">
-        <h2>什么是微服务</h2>
+<section class="slide">
+    <h2>什么是microservices</h2>
+    <div class="small">
         <figure>
             <blockquote>
-                <p>In short, the microservice architectural style is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API. These services are built around business capabilities and independently deployable by fully automated deployment machinery.</p>
+                <p>In short, the microservice architectural style is an approach to developing a single application as a
+                    suite of small services, each running in its own process and communicating with lightweight
+                    mechanisms,
+                    often an HTTP resource API. These services are built around business capabilities and independently
+                    deployable by fully automated deployment machinery.</p>
             </blockquote>
             <figcaption>James Lewis and Martin Fowler</figcaption>
         </figure>
         <figure>
             <blockquote>
-                <p>简而言之，微服务架构风格是一种将单个应用程序开发为一套小型服务的方法，每个小型服务都在自己的流程中运行，并与轻量级机制（通常是HTTP资源API）进行通信。这些服务围绕业务功能构建，可通过全自动部署机制独立部署。</p>
+                <p>
+                    简而言之，微服务架构风格是一种将单个应用程序开发为一套小型服务的方法，每个小型服务都在自己的流程中运行，并与轻量级机制（通常是HTTP资源API）进行通信。这些服务围绕业务功能构建，可通过全自动部署机制独立部署。</p>
             </blockquote>
             <figcaption>James Lewis and Martin Fowler</figcaption>
         </figure>
-    </section>
+    </div>
+</section>
 
-    <section class="slide">
-        <h2>优劣</h2>
-            <p><li>优势
-                    <ul>
-                        <li>强模块化边界</li>
-                        <li>可独立部署</li>
-                        <li>技术多样性</li>
-                    </ul>
-                </li>
-            </p>
-            <p><li>劣势
-                    <ul>
-                        <li>分布式复杂性</li>
-                        <li>最终一致性</li>
-                        <li>运维复杂性</li>
-                        <li>测试复杂性</li>
-                    </ul>
-                </li>
-            </p>
-    </section>
 
-    <section class="slide">
-        <h2>Timeline</h2>
-        <div style="width: 100%;height: 400px;overflow-y: auto;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="439" height="1798" style="margin: 0 auto;display: block;">
-                <image href="2019-05-01_mb_pictures/timeline.svg"></image>
-            </svg>
-        </div>
-    </section>
+<section class="slide">
+    <h2>microservices</h2>
+    <figure>
+        <image href="2019-05-01_mb_pictures/monolithic.svg" alt="Hands on the orange typewriter in a park"/>
+        <figcaption class="copyright right white">
+            <a href="fanfever.github.io/">© fanfever</a>
+        </figcaption>
+    </figure>
+</section>
 
-    <section class="slide" id="picture">
-        <h2>Wordcloud</h2>
-        <figure>
-            <img class="cover" src="2019-05-01_mb_pictures/wordcloud.png" alt="Orange typewriter on a wooden table close-up">
-            <figcaption class="copyright right white">
-                <a href="fanfever.github.io/">© fanfever</a>
-            </figcaption>
-        </figure>
-        <style>
-            #picture h2 {
-                color: white;
-            }
-        </style>
-    </section>
+<section class="slide">
+    <h2>优劣</h2>
+    <div class="small">
+        <li>优势
+            <ul>
+                <li>强模块化边界</li>
+                <li>可独立部署</li>
+                <li>技术多样性</li>
+            </ul>
+        </li>
+        <li>劣势
+            <ul>
+                <li>分布式复杂性</li>
+                <li>最终一致性</li>
+                <li>运维复杂性</li>
+                <li>测试复杂性</li>
+            </ul>
+        </li>
+    </div>
+</section>
 
-    <section class="slide">
-        <h2>Plain text on your slides</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur <a href="#4">adipisicing</a> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <em>quis nostrud</em> exercitation ullamco laboris <strong>nisi ut aliquip</strong> ex ea commodo consequat. Duis aute irure <i>dolor</i> in reprehenderit in voluptate velit esse cillum <b>dolore</b> eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in <code>&lt;culpa&gt;</code> qui officia deserunt mollit anim id est laborum.</p>
-    </section>
+<section class="slide">
+    <h2>service mesh</h2>
+</section>
 
-    <section class="slide">
-        <h2>Two columns if you like</h2>
-        <div class="columns two">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
-        </div>
-    </section>
-
-    <section class="slide">
-        <h2>All kind of lists</h2>
-        <ol>
-            <li>Simple lists are marked with bullets</li>
-            <li>Ordered lists begin with a number</li>
-            <li>You can even nest lists one inside another
-                <ul>
-                    <li>Or mix their types</li>
-                    <li>But do not go too far</li>
-                    <li>Otherwise audience will be bored</li>
-                </ul>
-            </li>
-            <li>Look, seven rows exactly!</li>
-        </ol>
-    </section>
-
-    <section class="slide">
-        <h2>Serious citations</h2>
+<section class="slide">
+    <h2>什么是service mesh</h2>
+    <div class="small">
         <figure>
             <blockquote>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
+                <p>A service mesh is a dedicated infrastructure layer for handling service-to-service communication.
+                    It’s responsible for the reliable delivery of requests through the complex topology of services that
+                    comprise a modern, cloud native application. In practice, the service mesh is typically implemented
+                    as an array of lightweight network proxies that are deployed alongside application code, without the
+                    application needing to be aware.</p>
             </blockquote>
-            <figcaption>Marcus Tullius Cicero</figcaption>
+            <figcaption>William Morgan</figcaption>
         </figure>
-    </section>
+        <figure>
+            <blockquote>
+                <p>
+                    Service Mesh 是一个基础设施层，用于处理服务间通信。云原生应用有着复杂的服务拓扑，Service Mesh 保证请求可以在这些拓扑中可靠地穿梭。在实际应用当中，Service Mesh
+                    通常是由一系列轻量级的网络代理组成的，它们与应用程序部署在一起，但应用程序不需要知道它们的存在。</p>
+            </blockquote>
+            <figcaption>William Morgan</figcaption>
+        </figure>
+    </div>
+</section>
 
-    <section class="slide">
-        <h2>Code samples</h2>
-        <pre>
+<section class="slide">
+    <h2>现有微服务的问题</h2>
+    <div>
+        <ul>
+            <li>技术门槛高</li>
+            <li>多语言支持不足</li>
+            <li>代码侵入性强</li>
+        </ul>
+    </div>
+</section>
+
+<section class="slide">
+    <h2>架构图</h2>
+    <figure>
+        <image href="2019-05-01_mb_pictures/monolithic.svg" alt="Hands on the orange typewriter in a park"/>
+        <figcaption class="copyright right white">
+            <a href="fanfever.github.io/">© fanfever</a>
+        </figcaption>
+    </figure>
+</section>
+
+<section class="slide">
+    <h2>服务网格</h2>
+    <figure>
+        <image href="2019-05-01_mb_pictures/monolithic.svg" alt="Hands on the orange typewriter in a park"/>
+        <figcaption class="copyright right white">
+            <a href="fanfever.github.io/">© fanfever</a>
+        </figcaption>
+    </figure>
+</section>
+
+<section class="slide">
+    <h2>服务注册发现</h2>
+</section>
+
+<section class="slide">
+    <h2>概念</h2>
+    <p>微服务实例的网络位置发生变化是一种常态</p>
+</section>
+
+<section class="slide">
+    <h2>服务发现机制</h2>
+    <table>
+        <tr>
+            <th scope="col">客户端模式</th>
+            <th scope="col">服务端模式</th>
+        </tr>
+        <tr>
+            <td>只需要周期性获取列表，在调用服务时可以直接调用少了一个RT。但需要在每个客户端维护获取列表的逻辑</td>
+            <td>简单，不需要在客户端维护获取服务列表的逻辑</td>
+        </tr>
+        <tr>
+            <td>可用性高，即使注册中心出现故障也能正常工作</td>
+            <td>可用性由路由器中间件决定，路由中间件故障则所有服务不可用，同时，由于所有调度以及存储都由中间件服务器完成，中间件服务器可能会面临过高的负载</td>
+        </tr>
+        <tr>
+            <td>服务上下线对调用方有影响（会出现短暂调用失败）</td>
+            <td>服务上下线调用方无感知</td>
+        </tr>
+    </table>
+</section>
+
+<section class="slide">
+    <h2>主流方案对比</h2>
+</section>
+
+<section class="slide">
+    <h2>Zookeeper</h2>
+    <figure>
+        <image href="2019-05-01_mb_pictures/monolithic.svg" alt="Hands on the orange typewriter in a park"/>
+        <figcaption class="copyright right white">
+            <a href="fanfever.github.io/">© fanfever</a>
+        </figcaption>
+    </figure>
+</section>
+
+<section class="slide">
+    <h2>Dubbo</h2>
+    <figure>
+        <image href="2019-05-01_mb_pictures/monolithic.svg" alt="Hands on the orange typewriter in a park"/>
+        <figcaption class="copyright right white">
+            <a href="fanfever.github.io/">© fanfever</a>
+        </figcaption>
+    </figure>
+</section>
+
+<section class="slide">
+    <h2>Eureka</h2>
+    <figure>
+        <image href="2019-05-01_mb_pictures/monolithic.svg" alt="Hands on the orange typewriter in a park"/>
+        <figcaption class="copyright right white">
+            <a href="fanfever.github.io/">© fanfever</a>
+        </figcaption>
+    </figure>
+</section>
+
+<section class="slide">
+    <h2>Spring Cloud</h2>
+    <figure>
+        <image href="2019-05-01_mb_pictures/monolithic.svg" alt="Hands on the orange typewriter in a park"/>
+        <figcaption class="copyright right white">
+            <a href="fanfever.github.io/">© fanfever</a>
+        </figcaption>
+    </figure>
+</section>
+
+<section class="slide">
+    <h2>coreDNS</h2>
+    <figure>
+        <image href="2019-05-01_mb_pictures/monolithic.svg" alt="Hands on the orange typewriter in a park"/>
+        <figcaption class="copyright right white">
+            <a href="fanfever.github.io/">© fanfever</a>
+        </figcaption>
+    </figure>
+</section>
+
+<section class="slide">
+    <h2>Envoy</h2>
+    <figure>
+        <image href="2019-05-01_mb_pictures/monolithic.svg" alt="Hands on the orange typewriter in a park"/>
+        <figcaption class="copyright right white">
+            <a href="fanfever.github.io/">© fanfever</a>
+        </figcaption>
+    </figure>
+</section>
+
+<section class="slide">
+    <h2>Istio</h2>
+    <figure>
+        <image href="2019-05-01_mb_pictures/monolithic.svg" alt="Hands on the orange typewriter in a park"/>
+        <figcaption class="copyright right white">
+            <a href="fanfever.github.io/">© fanfever</a>
+        </figcaption>
+    </figure>
+</section>
+
+<section class="slide">
+    <h2>什么时候引入微服务</h2>
+</section>
+
+<section class="slide">
+    <h2>康威定律</h2>
+    <div class="small">
+        <figure>
+            <blockquote>
+                <p>Any organization that design a system (defined broadly) will produce a design whose structure is a
+                    copy of the organization’s communication structure.</p>
+            </blockquote>
+            <figcaption>Melvin Conway</figcaption>
+        </figure>
+        <figure>
+            <blockquote>
+                <p>
+                    设计系统的架构受制于产生这些设计的组织的沟通结构。</p>
+            </blockquote>
+            <figcaption>Melvin Conway</figcaption>
+        </figure>
+    </div>
+</section>
+
+<section class="slide">
+    <h2>DDD</h2>
+</section>
+
+<section class="slide" id="picture">
+    <h2>Wordcloud</h2>
+    <figure>
+        <img class="cover" src="2019-05-01_mb_pictures/wordcloud.png"
+             alt="Orange typewriter on a wooden table close-up">
+        <figcaption class="copyright right white">
+            <a href="fanfever.github.io/">© fanfever</a>
+        </figcaption>
+    </figure>
+    <style>
+        #picture h2 {
+            color: white;
+        }
+    </style>
+</section>
+
+<section class="slide">
+    <h2>Plain text on your slides</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur <a href="#4">adipisicing</a> elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, <em>quis nostrud</em> exercitation ullamco laboris
+        <strong>nisi ut aliquip</strong> ex ea commodo consequat. Duis aute irure <i>dolor</i> in reprehenderit in
+        voluptate velit esse cillum <b>dolore</b> eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in <code>&lt;culpa&gt;</code> qui officia deserunt mollit anim id est laborum.</p>
+</section>
+
+<section class="slide">
+    <h2>Two columns if you like</h2>
+    <div class="columns two">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
+    </div>
+</section>
+
+<section class="slide">
+    <h2>All kind of lists</h2>
+    <ol>
+        <li>Simple lists are marked with bullets</li>
+        <li>Ordered lists begin with a number</li>
+        <li>You can even nest lists one inside another
+            <ul>
+                <li>Or mix their types</li>
+                <li>But do not go too far</li>
+                <li>Otherwise audience will be bored</li>
+            </ul>
+        </li>
+        <li>Look, seven rows exactly!</li>
+    </ol>
+</section>
+
+<section class="slide">
+    <h2>Serious citations</h2>
+    <figure>
+        <blockquote>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
+        </blockquote>
+        <figcaption>Marcus Tullius Cicero</figcaption>
+    </figure>
+</section>
+
+<section class="slide">
+    <h2>Code samples</h2>
+    <pre>
             <code>&lt;!DOCTYPE html&gt;</code>
             <code class="mark">&lt;html lang="en"&gt;</code>
             <code><mark>&lt;head&gt;</mark> <span class="comment">&lt;!--Comment--&gt;</span></code>
@@ -244,11 +469,11 @@
             <code>    &lt;link rel="stylesheet" href="screen.css"&gt;</code>
             <code><mark>&lt;/head&gt;</mark></code>
         </pre>
-    </section>
+</section>
 
-    <section class="slide">
-        <h2>Even tables</h2>
-        <table>
+<section class="slide">
+    <h2>Even tables</h2>
+    <table>
         <tr>
             <th scope="col">Locavore</th>
             <th>Umami</th>
@@ -279,50 +504,50 @@
             <td>Swag</td>
             <td>Blog</td>
         </tr>
-        </table>
-        <p>It’s good to have information organized.</p>
-    </section>
+    </table>
+    <p>It’s good to have information organized.</p>
+</section>
 
-    <section class="slide">
-        <h2 class="shout shrink">You can even shout this way</h2>
-    </section>
+<section class="slide">
+    <h2 class="shout shrink">You can even shout this way</h2>
+</section>
 
-    <section class="slide">
-        <h2>Inner navigation</h2>
-        <ol>
-            <li>Lets you reveal list items one by one</li>
-            <li class="next">To keep some key points</li>
-            <li class="next">In secret from audience</li>
-            <li class="next">But it will work only once</li>
-            <li class="next">Nobody wants to see the same joke twice</li>
-        </ol>
-    </section>
+<section class="slide">
+    <h2>Inner navigation</h2>
+    <ol>
+        <li>Lets you reveal list items one by one</li>
+        <li class="next">To keep some key points</li>
+        <li class="next">In secret from audience</li>
+        <li class="next">But it will work only once</li>
+        <li class="next">Nobody wants to see the same joke twice</li>
+    </ol>
+</section>
 
-    <section class="slide" id="see-more">
-        <h2 class="shout">
-            <img src="pictures/logo.svg" alt="Shower logo">
-            <a href="https://github.com/shower/shower">See more on GitHub</a>
-        </h2>
-        <style>
-            #see-more h2 {
-                font-size: 100px
-            }
+<section class="slide" id="see-more">
+    <h2 class="shout">
+        <img src="pictures/logo.svg" alt="Shower logo">
+        <a href="https://github.com/shower/shower">See more on GitHub</a>
+    </h2>
+    <style>
+        #see-more h2 {
+            font-size: 100px
+        }
 
-            #see-more img {
-                width: 0.72em;
-                height: 0.72em;
-            }
-        </style>
-    </section>
+        #see-more img {
+            width: 0.72em;
+            height: 0.72em;
+        }
+    </style>
+</section>
 
-    <footer class="badge">
-        <a href="https://github.com/shower/shower">Edit me on GitHub</a>
-    </footer>
+<footer class="badge">
+    <a href="https://github.com/shower/shower">Edit me on GitHub</a>
+</footer>
 
-    <div class="progress"></div>
+<div class="progress"></div>
 
-    <script src="../slides_style/shower/shower.min.js"></script>
-    <!-- Copyright © 3000 Yours Truly, Famous Inc. -->
+<script src="../slides_style/shower/shower.min.js"></script>
+<!-- Copyright © 3000 Yours Truly, Famous Inc. -->
 
 </body>
 </html>
