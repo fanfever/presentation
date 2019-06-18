@@ -242,6 +242,9 @@ ZK质量比较好的客户端仅有 java 和 c 的客户端
 Client/Session 的状态机难以理解
 连接丢失异常不好处理
 
+ZK Push 基于 socket 长连接的 notify，
+利用 ZooKeeper 的 Session 活性 Track机制, 将服务的健康监测绑定在了 ZooKeeper 对于 Session 的健康监测上，或者说绑定在TCP长链接活性探测上了
+
 [Dubbo](http://www.talkwithtrend.com/home/attachment/201711/16/418679_151079877963626.png)
 
 ##### 旁白
@@ -262,7 +265,7 @@ Etcd，Zookeeper，Consul 比较
 
 ### Eureka&Spring Cloud
 
-![eureka](https://raw.githubusercontent.com/Netflix/eureka/master/images/eureka_architecture.png)
+[eureka](https://raw.githubusercontent.com/Netflix/eureka/master/images/eureka_architecture.png)
 
 ##### 旁白
 
@@ -286,9 +289,9 @@ Register： 注册服务实例，Client端向Server端注册自身的元数据�
 Renew：续约，通过发送心跳到Server维持和更新注册表中的服务实例元数据的有效性。当在一定时长内Server没有收到Client的心跳信息，将默认服务下线，将服务实例的信息从注册表中删除。
 Cancel：服务下线，Client在关闭时主动向Server注销服务实例元数据，这时Client的的服务实例数据将从Server的注册表中删除。
 
-Eureka中没有使用任何的数据强一致性算法保证不同集群间的Server的数据一致，仅通过数据拷贝的方式争取注册中心数据的最终一致性，虽然放弃数据强一致性但是换来了Server的可用性，降低了注册的代价，提高了集群运行的健壮性。
+Eureka中没有使用任何的数据强一致性算法保证不同集群间的Server的数据一致，仅通过数据拷贝的方式争取注册中心数据的最终一致性
 
-![spring cloud调用图](https://cloud.githubusercontent.com/assets/6069066/13906840/365c0d94-eefa-11e5-90ad-9d74804ca412.png)
+[spring cloud调用图](https://cloud.githubusercontent.com/assets/6069066/13906840/365c0d94-eefa-11e5-90ad-9d74804ca412.png)
 
 ##### 旁白
 
@@ -306,83 +309,132 @@ Sleuth + Zipkin将所有的请求数据记录下来，方便我们进行后续�
 
 ### coreDNS&Kubernetes
 
-![kuberproxy](https://img2018.cnblogs.com/blog/907596/201903/907596-20190325170554554-1168234966.png)
+[kuberproxy](https://img2018.cnblogs.com/blog/907596/201903/907596-20190325170554554-1168234966.png)
 
-coreDNS是采用Go语言，Raft算法，基于插件的解决方案取代了早期的skyDNS和kubeDNS的方式，skyDNS体系不够灵活，较难添加新功能或进行扩展，而kubeDNS在运行时分3个容器，容易出现dnsmasq漏洞。
-coreDNS是基于DNS的动态服务发现的解决方案，它是将服务注册为DNS的SRV记录的方式来实现服务发现，与常见的A记录、cname不同的是还记录了服务的端口,并且可以设置每个服务地址的优先级和权重，
-coreDNS运行时只需启动一个容器，也没有漏洞方面的问题，提供的ConfigMap工具可动态更新配置。基于插件的架构使用户可以插件的方式随时添加或删除功能。目前，CoreDNS已包括30多个自有插件和20个以上的外部插件。
-通过链接插件，用户可以启用Prometheus监控、Jaeger日志跟踪、Fluentd日志记录、Kubernetes API或etcd配置以及其他的高级DNS特性和集成功能。
+coreDNS是采用Go语言，Raft算法，它基于插件，取代了早期的skyDNS和kubeDNS的方式
+skyDNS不好扩展，kubeDNS在运行时分3个容器，容易出现漏洞
+顾名思义，整个这三代服务发现的实现方式都是基于DNS，它是将服务注册为DNS的SRV记录的方式来实现服务发现，
+与常见的A记录、cname不同的是SRV记录了服务的端口,并且可以设置每个服务地址的优先级和权重，
+整个 CoreDNS 服务都建立在一个使用 Go 编写的 HTTP/2 Web 服务器 Caddy
+coreDNS基于插件的架构使用户可以插件的方式随时添加或删除功能
+Prometheus监控、Jaeger日志跟踪、Fluentd日志记录、Kubernetes API或etcd配置以及其他的高级DNS特性和集成功能。
+
+在 k8s 集群中，每个 Node 运行一个 kube-proxy 进程。kube-proxy 负责为 Service 实现了一种 VIP（虚拟 IP）的形式。 
+代理也经过了iptables和ipvs两种模式
+
+kube-proxy 缺陷
+Kube-proxy 实现了流量在 Kubernetes service 多个 pod 实例间的负载均衡，但是如何对这些 service 间的流量做细粒度的控制，比如按照百分比划分流量到不同的应用版本（这些应用都属于同一个 service，但位于不同的 deployment 上），做金丝雀发布（灰度发布）和蓝绿发布？Kubernetes 社区给出了 使用 Deployment 做金丝雀发布的方法，该方法本质上就是通过修改 pod 的 label 来将不同的 pod 划归到 Deployment 的 Service 上。
 
 
-还不能支持较为复杂的LB特性，例如会话保持，nginx controller扩展了ingress可以做会话保持但必须使用nginx plus。
+ingress
 
+kube-proxy 只能路由 Kubernetes 集群内部的流量，集群外部是无法直接与其通信的，因此 Kubernetes 中创建了 ingress 这个资源对象，Ingress 必须对接各种个 Ingress Controller 才能使用，比如 nginx ingress controller、traefik。
+Ingress 只适用于 HTTP 流量，这导致它无法路由如 MySQL、redis 和各种私有 RPC 等 TCP 流量。
+要想直接路由南北向的流量，只能使用 Service 的 LoadBalancer 或 NodePort，前者需要云厂商支持而且可能需要付费，后者需要进行额外的端口管理。
+有些 Ingress controller 支持暴露 TCP 和 UDP 服务，但是只能使用 Service 来暴露，Ingress 本身是不支持的，例如 nginx ingress controller，服务的暴露的端口是通过创建 ConfigMap 的方式来配置的
+
+ingress还不能支持较为复杂的LB特性，例如会话保持，nginx controller扩展了ingress可以做会话保持但必须使用nginx plus。
 业务规则发生变化，会导致频繁修改ingress配置，且所变化都会引起nginx reload配置，这在大并发，复杂系统环境下可能会产生较大问题
-
 外部访问的入口依赖使用controller所在node的宿主IP，且端口暴露在node IP上，对于多个应用需要同时使用相同端口时候会导致端口冲突
-
 外部访问入口分散在多个node IP上，使得外部统一访问变得困难，且存在潜在的单点故障，一个node 失败，客户端只有重新发起到新的node节点的访问（虽然可以使用dns来轮询这些IP），因此有必要为这些入口访问点构建统一的虚拟IP（漂移IP），这可以通过在k8s环境外部使用其它高级LB来实现，比如F5。或者将多个提供访问的node节点构建为一个集群（比如使用keepalived）
-
 所以基本上ingress的方案还得需要一个外部LB来做统一的高容量请求入口，ingress只能作为k8s内部的二级LB（且功能有限）。与其这样，不如直接通过将pod暴露给外部LB来直接做负载均衡
-
 nginx无图形界面统一管理，nginx plus有 但是是商业版本。
-
 ingress没有业务监控检查功能
-
 只支持http L7
-
 不能混合支持L4/L7 LB
-
 不支持TLS的SNI，以及SSL re-encrypt
 
 ### Envoy&Istio
 
-![envoy架构](https://jimmysong.io/kubernetes-handbook/images/envoy-arch.png)
+[envoy架构](https://jimmysong.io/kubernetes-handbook/images/envoy-arch.png)
 
-Envoy 是 Istio Service Mesh 中默认的 Sidecar，Istio 在 Enovy 的基础上按照 Envoy 的 xDS 协议扩展了其控制平面，
-Envoy 是一款由 Lyft 开源的，使用 C++ 编写的 L7 代理和通信总线，目前是 CNCF 旗下的开源项目且已经毕业，代码托管在 GitHub 上，它也是 Istio service mesh 中默认的 data plane
+##### 旁白
+
+Envoy 是一款由 Lyft 开源的，使用 C++ 编写的 L7 代理和通信总线，目前是 CNCF 旗下的开源项目
+Envoy 是 Istio 中默认的 sidecar，与应用程序运行在同一个pod中，Istio 在 Enovy 的基础上按照 Envoy 的 xDS 协议扩展了其控制平面，
+
+Envoy 通过查询文件或管理服务器来动态发现资源。概括地讲，对应的发现服务及其相应的 API 被称作 xDS。
+Envoy 通过订阅（subscription）方式来获取资源，如监控指定路径下的文件、启动 gRPC 流或轮询 REST-JSON URL
+
+Envoy xDS 定义了 Service Mesh 配置的协议标准。
 
 上图是 Envoy proxy 的架构图，显示了 host B 经过 Envoy 访问 host A 的过程。每个 host 上都可能运行多个 service，Envoy 中也可能有多个 Listener，每个 Listener 中可能会有多个 filter 组成了 chain
 
-Host：能够进行网络通信的实体（在手机或服务器等上的应用程序）。在 Envoy 中主机是指逻辑网络应用程序。只要每台主机都可以独立寻址，一块物理硬件上就运行多个主机。
-
-Downstream：下游（downstream）主机连接到 Envoy，发送请求并或获得响应。
-
-Upstream：上游（upstream）主机获取来自 Envoy 的链接请求和响应。
-
-Cluster: 集群（cluster）是 Envoy 连接到的一组逻辑上相似的上游主机。Envoy 通过服务发现发现集群中的成员。Envoy 可以通过主动运行状况检查来确定集群成员的健康状况。Envoy 如何将请求路由到集群成员由负载均衡策略确定。
-
-Mesh：一组互相协调以提供一致网络拓扑的主机。Envoy mesh 是指一组 Envoy 代理，它们构成了由多种不同服务和应用程序平台组成的分布式系统的消息传递基础。
-
-运行时配置：与 Envoy 一起部署的带外实时配置系统。可以在无需重启 Envoy 或 更改 Envoy 主配置的情况下，通过更改设置来影响操作。
-
-Listener: 监听器（listener）是可以由下游客户端连接的命名网络位置（例如，端口、unix域套接字等）。Envoy 公开一个或多个下游主机连接的侦听器。一般是每台主机运行一个 Envoy，使用单进程运行，但是每个进程中可以启动任意数量的 Listener（监听器），目前只监听 TCP，每个监听器都独立配置一定数量的（L3/L4）网络过滤器。Listenter 也可以通过 Listener Discovery Service（LDS）动态获取。
-
-Listener filter：Listener 使用 listener filter（监听器过滤器）来操作链接的元数据。它的作用是在不更改 Envoy 的核心功能的情况下添加更多的集成功能。Listener filter 的 API 相对简单，因为这些过滤器最终是在新接受的套接字上运行。在链中可以互相衔接以支持更复杂的场景，例如调用速率限制。Envoy 已经包含了多个监听器过滤器。
-
-Http Route Table：HTTP 的路由规则，例如请求的域名，Path 符合什么规则，转发给哪个 Cluster。
-
-Health checking：健康检查会与SDS服务发现配合使用。但是，即使使用其他服务发现方式，也有相应需要进行主动健康检查的情况。详见 health checking。
-
-![Istio service mesh 架构图](https://jimmysong.io/istio-handbook/images/006tNc79ly1fz73sprcdlj31580u046j.jpg)
+[Istio service mesh 架构图](https://jimmysong.io/istio-handbook/images/006tNc79ly1fz73sprcdlj31580u046j.jpg)
 
 
 ##### 旁白
 
-该图中描绘了以下内容：
+Istio服务网格分为数据面板和控制面板。
+数据面板由 Envoy组成
+Mixer、Pilot，citadel 属于控制面板
 
-Istio 可以在虚拟机和容器中运行
-Istio 的组成
-Pilot：服务发现、流量管理
-Mixer：访问控制、遥测
-Citadel：终端用户认证、流量加密
-Service mesh 关注的方面
-可观察性
-安全性
-可运维性
-Istio 是可定制可扩展的，组建是可拔插的
-Istio 作为控制平面，在每个服务中注入一个 Envoy 代理以 Sidecar 形式运行来拦截所有进出服务的流量，同时对流量加以控制
-应用程序应该关注于业务逻辑（这才能生钱），非功能性需求交给 Service Mesh
+Pilot 提供请求路由，服务发现和负载均衡，故障处理，故障注入，规则配置，流量迁移、请求超时、熔断等能力
+从上图可以看到Pilot平台无关性设计，Pilot提供REST客户端接受用户请求，具体的实现则由各个平台自己实现 Platform 适配。
 
+Mixer：适配组件，数据平面与控制平面通过它交互
+citadel：安全组件
+
+
+Envoy会从Pilot得到服务发现信息，执行Pilot的路由规则，包括路由和目的地策略，
+此外, Envoy 也吐出各种数据给Mixer，如监控，日志等
+
+
+
+[流量控制](https://img-blog.csdn.net/20180817102905413?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NoZW5sZWlraW5n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+
+如上图所示，服务A调用服务B，服务B要发布一个灰度版本，需要5%的流量打到服务B的新版本，只需要：
+
+（1）部署服务B的新版本；
+
+（2）控制平面Pilot上进行策略配置，策略同步到Envoy；
+
+（3）当svcA通过svcB到域名访问其服务时，Envoy根据Pilot配置的路由规则，将1%的流量分给了svcB的alpha版本
+
+# 伪代码
+
+# create new namespace
+kubectl create ns udesk
+
+# deploy robot
+kubectl apply -f <(istioctl kube-inject -f robot/deployment.yml) -n udesk
+kubectl apply -f robot/service.yml
+
+# deploy km
+kubectl apply -f <(istioctl kube-inject -f km/deployment.yml) -n udesk
+kubectl apply -f km/service.yml
+
+# 切换流量
+istioctl create -f istiofiles/route-rule-robot-v1_and_v2.yml -n udesk
+
+# route-rule-robot-v1_and_v2.yml
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: robot
+spec:
+  hosts:
+  - robot
+  http:
+  - route:
+    - destination:
+        host: robot
+        subset: version-v1
+      weight: 90
+    - destination:
+        host: robot
+        subset: version-v2
+      weight: 10
+---
+
+
+
+Kubernetes 的本质是应用的生命周期管理，具体说是部署和管理（扩缩容、自动恢复、发布）
+Service Mesh 将流量管理从 Kubernetes 中解耦，Service Mesh 内部的流量无需 kube-proxy 组件的支持，
+通过为更接近微服务应用层的抽象，管理服务间的流量、安全性和可观察性。
+Service Mesh 是对 Kubernetes 中的 service 更上层的抽象，它的下一步是 serverless
 
 
 # 什么时候引入微服务
@@ -411,7 +463,6 @@ DDD
 对于不熟悉的业务领域，很难第一次就把各个微服务的边界和接口定义正确，一旦开始开发，重构成本就会非常可观。
 反过来说，当对领域知识有了一定的积累，再重构一个单体应用就会容易的多。
 综上所述，虽然微服务看上去很美，但在决定采用微服务架构之前，不仅要仔细考量团队的技术水平（包括知识结构，理论深度，经验积累和技术氛围），还应综合考虑项目的时间范围，领域知识的熟悉程度，以及所在组织的规模架构。
-
 
 
 
