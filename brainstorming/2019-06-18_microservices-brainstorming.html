@@ -14,6 +14,10 @@
             font-size: 60%
         }
 
+        .microsmall {
+            font-size: 30%
+        }
+
         #cover h2 {
             margin: 30px 0 0;
             color: white;
@@ -121,7 +125,8 @@
 <section class="slide">
     <h2>Monolithic</h2>
     <figure>
-        <img class="cover" src="2019-06-18_mb_pictures/monolithic_architecture.png" alt="Hands on the orange typewriter in a park">
+        <img class="cover" src="2019-06-18_mb_pictures/monolithic_architecture.png"
+             alt="Hands on the orange typewriter in a park">
         <figcaption class="copyright right black">
             <a href="https://github.com/fanfever/presentation">© udesk</a>
         </figcaption>
@@ -207,7 +212,8 @@
         <div class="small">
             <figure>
                 <blockquote>
-                    <p>In short, the microservice architectural style is an approach to developing a single application as a
+                    <p>In short, the microservice architectural style is an approach to developing a single application
+                        as a
                         suite of
                         <mark>small</mark>
                         services, each running in its own process and communicating with lightweight
@@ -306,10 +312,13 @@
         <div class="small">
             <figure>
                 <blockquote>
-                    <p>A service mesh is a dedicated infrastructure layer for handling service-to-service communication.
-                        It’s responsible for the reliable delivery of requests through the complex topology of services that
-                        comprise a modern, cloud native application. In practice, the service mesh is typically implemented
-                        as an array of lightweight network proxies that are deployed alongside application code, without the
+                    <p>A service mesh is a dedicated <mark>infrastructure layer</mark> for handling <mark>service-to-service communication</mark>.
+                        It’s responsible for the reliable delivery of requests through the complex topology of services
+                        that
+                        comprise a modern, cloud native application. In practice, the service mesh is typically
+                        implemented
+                        as an array of <mark>lightweight network proxies</mark> that are deployed alongside application code, without
+                        the
                         application needing to be aware.</p>
                 </blockquote>
                 <figcaption>William Morgan</figcaption>
@@ -317,7 +326,8 @@
             <figure>
                 <blockquote>
                     <p>
-                        Service Mesh 是一个基础设施层，用于处理服务间通信。云原生应用有着复杂的服务拓扑，Service Mesh 保证请求可以在这些拓扑中可靠地穿梭。在实际应用当中，Service Mesh
+                        Service Mesh 是一个基础设施层，用于处理服务间通信。云原生应用有着复杂的服务拓扑，Service Mesh 保证请求可以在这些拓扑中可靠地穿梭。在实际应用当中，Service
+                        Mesh
                         通常是由一系列轻量级的网络代理组成的，它们与应用程序部署在一起，但应用程序不需要知道它们的存在。</p>
                 </blockquote>
                 <figcaption>威廉·摩根</figcaption>
@@ -406,7 +416,8 @@
 
 <section class="slide">
     <figure>
-        <img class="cover" src="2019-06-18_mb_pictures/microservices_diff.png" alt="Hands on the orange typewriter in a park">
+        <img class="cover" src="2019-06-18_mb_pictures/microservices_diff.png"
+             alt="Hands on the orange typewriter in a park">
         <figcaption class="copyright right black">
             <a href="https://github.com/fanfever/presentation">© udesk</a>
         </figcaption>
@@ -518,6 +529,75 @@
     </figure>
 </section>
 
+<section class="slide clear">
+    <figure>
+        <img class="cover" src="2019-06-18_mb_pictures/dark_lanch.png" alt="Hands on the orange typewriter in a park">
+        <figcaption class="copyright right black">
+            <a href="https://github.com/fanfever/presentation">© udesk</a>
+        </figcaption>
+    </figure>
+</section>
+
+<section class="slide">
+    <figure>
+        <h2 class="shout">Pseudocode</h2>
+        <figcaption class="copyright right black">
+            <a href="https://github.com/fanfever/presentation">© udesk</a>
+        </figcaption>
+    </figure>
+</section>
+
+<section class="slide microsmall">
+    <figure>
+        <pre><code>
+<span class="comment"># create new namespace</span>
+kubectl create ns udesk
+
+<span class="comment"># deploy robot</span>
+kubectl apply -f <(istioctl kube-inject -f robot/deployment.yml) -n udesk
+
+<span class="comment"># deploy km</span>
+kubectl apply -f <(istioctl kube-inject -f km/deployment-v1.yml) -n udesk
+kubectl apply -f <(istioctl kube-inject -f km/deployment-v2.yml) -n udesk
+
+<span class="comment"># 切换流量</span>
+istioctl create -f istiofiles/route-rule-robot.yml -n udesk
+            </code></pre>
+        <figcaption class="copyright right black">
+            <a href="https://github.com/fanfever/presentation">© udesk</a>
+        </figcaption>
+    </figure>
+</section>
+
+<section class="slide microsmall">
+    <figure>
+        <pre><code>
+<span class="comment"># route-rule-robot-v1.yml</span>
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: robot
+spec:
+  hosts:
+  - robot
+  http:
+  - route:
+    - destination:
+        host: robot
+        subset: version-v1
+        <mark>weight: 99</mark>
+    - destination:
+        host: robot
+        subset: version-v2
+        <mark>weight: 1</mark>
+---
+            </code></pre>
+        <figcaption class="copyright right black">
+            <a href="https://github.com/fanfever/presentation">© udesk</a>
+        </figcaption>
+    </figure>
+</section>
+
 <section class="slide">
     <figure>
         <h2 class="shout">什么时候引入微服务</h2>
@@ -533,7 +613,8 @@
         <div class="small">
             <figure>
                 <blockquote>
-                    <p>Any organization that design a system (defined broadly) will produce a design whose structure is a
+                    <p>Any organization that design a system (defined broadly) will produce a design whose structure is
+                        a
                         copy of the organization’s communication structure.</p>
                 </blockquote>
                 <figcaption>Melvin Conway</figcaption>
@@ -563,7 +644,8 @@
 
 <section class="slide clear">
     <figure>
-        <img class="cover w h" src="2019-06-18_mb_pictures/wordcloud.png" alt="Hands on the orange typewriter in a park">
+        <img class="cover w h" src="2019-06-18_mb_pictures/wordcloud.png"
+             alt="Hands on the orange typewriter in a park">
         <figcaption class="copyright right white">
             <a href="https://github.com/fanfever/presentation">© udesk</a>
         </figcaption>
@@ -571,7 +653,8 @@
 </section>
 
 <footer class="badge">
-    <a href="https://github.com/fanfever/presentation/blob/master/brainstorming/2019-06-18_microservices-brainstorming.html">Edit me on GitHub</a>
+    <a href="https://github.com/fanfever/presentation/blob/master/brainstorming/2019-06-18_microservices-brainstorming.html">Edit
+        me on GitHub</a>
 </footer>
 
 <div class="progress"></div>
